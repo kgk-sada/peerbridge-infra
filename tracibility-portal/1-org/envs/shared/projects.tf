@@ -18,7 +18,7 @@ module "org_audit_logs" {
   random_project_id        = true
   random_project_id_length = 4
   default_service_account  = "deprivilege"
-  name                     = "${local.project_prefix}-c-logging"
+  name                     = "${local.project_prefix}-c-logging-tp"
   org_id                   = local.org_id
   billing_account          = local.billing_account
   folder_id                = google_folder.common.id
@@ -26,7 +26,7 @@ module "org_audit_logs" {
 
   labels = {
     environment      = "common"
-    application_name = "org-logging"
+    application_name = "org-logging-tp"
     billing_code     = "common"
     environment_code = "c"
   }
@@ -41,7 +41,7 @@ module "org_billing_logs" {
   random_project_id        = true
   random_project_id_length = 4
   default_service_account  = "deprivilege"
-  name                     = "${local.project_prefix}-c-billing-log"
+  name                     = "${local.project_prefix}-c-billing-log-tp"
   org_id                   = local.org_id
   billing_account          = local.billing_account
   folder_id                = google_folder.common.id
@@ -49,7 +49,7 @@ module "org_billing_logs" {
 
   labels = {
     environment      = "common"
-    application_name = "org-logging"
+    application_name = "org-logging-tp"
     billing_code     = "common"
     environment_code = "c"
   }
@@ -65,7 +65,7 @@ module "devops" {
   random_project_id        = true
   random_project_id_length = 4
   default_service_account  = "deprivilege"
-  name                     = "${local.project_prefix}-c-devops"
+  name                     = "${local.project_prefix}-c-devops-tp"
   org_id                   = local.org_id
   billing_account          = local.billing_account
   folder_id                = google_folder.common.id
@@ -73,7 +73,7 @@ module "devops" {
 
   labels = {
     environment      = "common"
-    application_name = "org-devops"
+    application_name = "org-devops-tp"
     billing_code     = "common"
     environment_code = "c"
   }

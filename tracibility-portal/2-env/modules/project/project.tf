@@ -4,7 +4,7 @@ module "project" {
 
   random_project_id           = true
   random_project_id_length    = 4
-  name                        = "${var.project_prefix}-${var.environment_code}-${var.application_name}"
+  name                        = "${var.project_prefix}-${var.environment_code}-${var.application_name}-tp"
   org_id                      = var.org_id
   billing_account             = var.billing_account
   folder_id                   = var.folder_id

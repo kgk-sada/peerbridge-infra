@@ -4,8 +4,8 @@ locals {
   network_self_link      = data.terraform_remote_state.network.outputs.dev_network_self_link
   subnet_name            = data.terraform_remote_state.network.outputs.dev_subnetwork_name_01
   master_auth_subnetwork = data.terraform_remote_state.network.outputs.dev_subnetwork_name_01
-  pods_range_name        = data.terraform_remote_state.network.outputs.dev_subnets_secondary_ip_range[0][0].range_name
-  svc_range_name         = data.terraform_remote_state.network.outputs.dev_subnets_secondary_ip_range[0][1].range_name
+  primary_range_name        = data.terraform_remote_state.network.outputs.dev_subnets_secondary_ip_range[0][0].range_name
+  secondary_range_name         = data.terraform_remote_state.network.outputs.dev_subnets_secondary_ip_range[0][1].range_name
 }
 
 

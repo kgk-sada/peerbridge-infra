@@ -3,7 +3,7 @@ locals {
   subnet_02 = "sb-${var.environment_code}-backend-02"
 }
 
-module "clinical_portal_network" {
+module "traceability_portal_network" {
   source             = "../../modules/network"
   project_id         = local.network_project_id
   network_name       = "vpc-${var.environment_code}-backend"

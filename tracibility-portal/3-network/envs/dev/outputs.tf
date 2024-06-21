@@ -1,20 +1,20 @@
 output "dev_network_name" {
-  value       = module.clinical_portal_network.network_name
+  value       = module.traceability_portal_network.network_name
   description = "The Name of VPC to be created"
 }
 
 output "dev_network_self_link" {
-  value       = module.clinical_portal_network.network_self_link
+  value       = module.traceability_portal_network.network_self_link
   description = "The Name of VPC to be created"
 }
 
 output "dev_subnets_ids" {
-  value       = module.clinical_portal_network.subnets_ids
+  value       = module.traceability_portal_network.subnets_ids
   description = "The ID of subnets created"
 }
 
 output "dev_subnets_secondary_ip_range" {
-  value = module.clinical_portal_network.secondary_ranges
+  value = module.traceability_portal_network.secondary_ranges
 }
 
 output "dev_firewall_iap" {
