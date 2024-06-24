@@ -15,7 +15,7 @@ module "traceability_portal_network" {
   subnets = [
     {
       subnet_name           = local.subnet_01
-      subnet_ip             = "10.1.0.0/22"
+      subnet_ip             = "10.1.24.0/22"
       subnet_region         = var.default_region
       subnet_private_access = "true"
       subnet_flow_logs      = "false"
@@ -24,7 +24,7 @@ module "traceability_portal_network" {
 
     {
       subnet_name           = local.subnet_02
-      subnet_ip             = "10.1.4.0/22"
+      subnet_ip             = "10.1.28.0/22"
       subnet_region         = var.default_region
       subnet_private_access = "true"
       subnet_flow_logs      = "false"
