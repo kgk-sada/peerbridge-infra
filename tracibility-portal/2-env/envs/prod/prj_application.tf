@@ -22,11 +22,6 @@ module "application" {
     "sqladmin.googleapis.com",
   ]
 
-  project_budget = {
-    budget_amount        = 1000
-    alert_spent_percents = [0.5, 0.75, 0.9, 0.95]
-    alert_pubsub_topic   = null
-  }
 
   labels = {
     environment      = var.env
