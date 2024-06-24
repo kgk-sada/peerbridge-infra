@@ -12,13 +12,4 @@ gcp_groups = {
 
 remote_state_bucket = "bkt-prj-b-seed-tfstate-163b" #REPLACE
 
-project_budget = {
-  org_secrets_budget_amount             = 2500
-  org_secrets_alert_spent_percents      = [0.5, 0.75, 0.9, 0.95]
-  org_billing_logs_budget_amount        = 2500
-  org_billing_logs_alert_spent_percents = [0.5, 0.75, 0.9, 0.95]
-  org_audit_logs_budget_amount          = 2500
-  org_audit_logs_alert_spent_percents   = [0.5, 0.75, 0.9, 0.95]
-}
-
 network_admin_roles = ["roles/compute.networkAdmin", "roles/dns.admin", "roles/compute.orgSecurityResourceAdmin", "roles/compute.orgSecurityPolicyAdmin"]
