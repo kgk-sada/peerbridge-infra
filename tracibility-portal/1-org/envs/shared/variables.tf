@@ -78,12 +78,12 @@ variable "project_budget" {
   alert_spent_percents: A list of percentages of the budget to alert on when threshold is exceeded.
   EOT
   type = object({
-    org_secrets_budget_amount             = optional(number, 100)
-    org_secrets_alert_spent_percents      = optional(list(number), [0.5, 0.75, 0.9, 0.95])
-    org_billing_logs_budget_amount        = optional(number, 100)
-    org_billing_logs_alert_spent_percents = optional(list(number), [0.5, 0.75, 0.9, 0.95])
-    org_audit_logs_budget_amount          = optional(number, 100)
-    org_audit_logs_alert_spent_percents   = optional(list(number), [0.5, 0.75, 0.9, 0.95])
+    org_secrets_budget_amount             = optional(number)
+    org_secrets_alert_spent_percents      = optional(list(number))
+    org_billing_logs_budget_amount        = optional(number)
+    org_billing_logs_alert_spent_percents = optional(list(number))
+    org_audit_logs_budget_amount          = optional(number,)
+    org_audit_logs_alert_spent_percents   = optional(list(number))
   })
   default = {}
 }
