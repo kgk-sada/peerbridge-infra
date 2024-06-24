@@ -1,11 +1,11 @@
-resource "google_cloudbuild_trigger" "build-trigger" {
-  name = "my-trigger"
-  location = "global"
+# resource "google_cloudbuild_trigger" "build-trigger" {
+#   name = "my-trigger"
+#   location = "global"
 
-  trigger_template {
-    branch_name = "main"
-    repo_name   = ""
-  }
+#   trigger_template {
+#     branch_name = "main"
+#     repo_name   = ""
+#   }
 
 #  build {
 #    step {
@@ -70,4 +70,4 @@ resource "google_cloudbuild_trigger" "build-trigger" {
 #      }
 #    }
 #  }
-}
+# }

@@ -3,21 +3,21 @@ domains_to_allow = ["cormdx.com"]
 
 essential_contacts_domains_to_allow = ["cormdx.com"]
 
-billing_data_users = "gcp-billing-user-tp@cormdx.com"
+billing_data_users = "gcp-billing-user@cormdx.com"
 
 gcp_groups = {
-  network_admin    = "gcp-network-admin-tp@cormdx.com"
-  monitoring_users = "gcp-monitoring-admin-tp@cormdx.com"
+  network_admin    = "gcp-network-admin@cormdx.com"
+  monitoring_users = "gcp-monitoring-admin@cormdx.com"
 }
 
-remote_state_bucket = "bkt-prj-b-seed-tfstate-76d3" #REPLACE
+remote_state_bucket = "bkt-prj-b-seed-tfstate-163b" #REPLACE
 
 project_budget = {
-  org_secrets_budget_amount             = 1000
+  org_secrets_budget_amount             = 2500
   org_secrets_alert_spent_percents      = [0.5, 0.75, 0.9, 0.95]
-  org_billing_logs_budget_amount        = 1000
+  org_billing_logs_budget_amount        = 2500
   org_billing_logs_alert_spent_percents = [0.5, 0.75, 0.9, 0.95]
-  org_audit_logs_budget_amount          = 1000
+  org_audit_logs_budget_amount          = 2500
   org_audit_logs_alert_spent_percents   = [0.5, 0.75, 0.9, 0.95]
 }
 
