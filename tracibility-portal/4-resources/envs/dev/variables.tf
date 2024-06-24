@@ -31,53 +31,7 @@ variable "subnetwork_name" {
 }
 
 
-variable "armor_name" {
-  description = "Cloud Armor Policy Name"
-}
-
 ##########  private Autopilot cluster specific variables #############
-
-# whether kubectl endpoint available publicly
-variable enable_private_endpoint { default = false }
-
-variable secondary_range_services_name { default = "services" }
-variable secondary_range_pods_name { default = "pods" }
-variable master_ipv4_cidr_block_28 { default = "172.16.0.0/28" }
-
-
-# authorized networks empty by default
-variable master_authorized_networks_cidr_list { 
-  type = list
-  default=["10.0.0.0/22"]
-}
-
-variable node_ap_oauth_scopes {
-  type = list(string)
-  default = [
-    "https://www.googleapis.com/auth/devstorage.read_only",
-    "https://www.googleapis.com/auth/logging.write",
-    "https://www.googleapis.com/auth/monitoring",
-    "https://www.googleapis.com/auth/servicecontrol",
-    "https://www.googleapis.com/auth/service.management.readonly",
-    "https://www.googleapis.com/auth/trace.append"
-  ]
-}
-variable node_ap_network_tags_list {
-  type = list(string)
-  default = ["gke-node"]
-}
-variable node_ap_labels_map {
-  type = map
-  default = {
-    env = "dev"
-  }
-}
-variable "ip_description" {
-  type        = string
-  default     = ""
-  description = "A brief description of ingress"
-}
-
 
 variable "gcp_bucket_project_id" {
   description = "Project in which GCS Bucket Resources will be created."
