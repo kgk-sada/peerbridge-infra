@@ -7,11 +7,13 @@ variable "remote_state_bucket" {
 variable "default_region" {
   type        = string
   description = "Default Region for Network deployment"
+  default     = "us-central1"
 }
 
 variable "environment_code" {
   type        = string
   description = "The code for specific environment"
+  default = "d"
 }
 
 variable "instance_name" {
@@ -20,10 +22,12 @@ variable "instance_name" {
 
 variable "network_name" {
   description = "Shared VPC Host Network Name"
+  default     = "vpc-d-backend"
 }
 
 variable "subnetwork_name" {
   description = "Shared VPC Host Subnetwork Name"
+  default     = "sb-d-backend-01"
 }
 
 

@@ -1,10 +1,4 @@
 remote_state_bucket         = "bkt-prj-b-seed-tfstate-163b" ############
-default_region              = "us-central1"
-environment_code            = "d"
-instance_name               = "pb-csql-dev-001"  
-network_name                = "vpc-d-backend"
-subnetwork_name             = "sb-d-backend-01"
-# static_ip_name              = "gke-ingress-static-ip"
-bucket_name                 = "dev-test-lib"
-gcp_bucket_project_id      = "prj-d-backend-tp-kysp"    ##########
-armor_name                 = "pb-cr-dev-01"
+instance_name               = "pb-sql-dev-1"  
+bucket_name                 = "dev-test-tp"
+gcp_bucket_project_id       = "prj-d-backend-tp-kysp"    ##########

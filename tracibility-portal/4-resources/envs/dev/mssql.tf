@@ -32,7 +32,9 @@ module "sql_instance" {
   database_version  = "SQLSERVER_2022_ENTERPRISE"
   tier              = "db-custom-2-3840"
   disk_type         = "PD_SSD"
+  disk_size         = "100"
   availability_type = "ZONAL"
+  deletion_protection = true 
   
 
   ip_configuration  =  {
