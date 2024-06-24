@@ -15,6 +15,11 @@ resource "google_service_networking_connection" "default" {
 }
 
 
+data "google_secret_manager_secret" "sqlroot_password" {
+  secret_id = "projects/1092774812152/secrets/sqlroot_password"
+  project   = "prj-d-network-host-tp-nf3m"
+}
+
 module "sql_instance" {
   source = "GoogleCloudPlatform/sql-db/google//modules/mssql"
   version = "16.1.0"
@@ -24,7 +29,8 @@ module "sql_instance" {
 
   name     = var.instance_name
   db_name           = "default"
-  database_version  = "SQLSERVER_2022_EXPRESS"
+  root_password     = data.google_secret_manager_secret.sqlroot_password.secret_id
+  database_version  = "SQLSERVER_2022_ENTERPRISE"
   tier              = "db-custom-2-3840"
   disk_type         = "PD_SSD"
   availability_type = "ZONAL"

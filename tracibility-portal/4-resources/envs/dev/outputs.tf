@@ -35,7 +35,7 @@
 
 # output "root_password" {
 #   description = "Root password from Cloud SQL"
-#   value       = module.sql_instance.random_password.root-password.value
+#    value       = module.sql_instance.random_password.root-password.value
 # }
 
 # output "user_password" {
@@ -43,3 +43,8 @@
 #   value       = module.sql_instance.random_password.user-password.value
 # }
 
+output "root_password" {
+  description = "Root password from Cloud SQL"
+   value       = data.google_secret_manager_secret.sqlroot_password.secret_id
+
+}

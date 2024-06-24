@@ -1,6 +1,3 @@
-variable "cluster_name" {
-  description = "Cluster Name"
-}
 
 variable "remote_state_bucket" {
   type        = string
@@ -76,10 +73,7 @@ variable "ip_description" {
   default     = ""
   description = "A brief description of ingress"
 }
-variable "static_ip_name" {
-  type        = string
-  description = "A unique name for the static ip. Changing this forces a new resource to be created."
-}
+
 
 variable "gcp_bucket_project_id" {
   description = "Project in which GCS Bucket Resources will be created."
@@ -109,6 +103,5 @@ variable "enable_versioning" {
   default     = false
   type        = bool
 }
-
 
 
