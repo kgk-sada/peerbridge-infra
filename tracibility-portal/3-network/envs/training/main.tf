@@ -30,7 +30,7 @@ data "terraform_remote_state" "env" {
 
   config = {
     bucket = var.remote_state_bucket
-    prefix = "terraform/environments/development"
+    prefix = "terraform/environments/training"
   }
 }
 
