@@ -45,6 +45,6 @@
 
 output "root_password" {
   description = "Root password from Cloud SQL"
-   value       = data.google_secret_manager_secret.sqlroot_password.secret_id
+   value       = data.google_secret_manager_secret_version.sqlroot_password.secret_data
 
 }

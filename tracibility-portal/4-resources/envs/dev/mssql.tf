@@ -14,9 +14,8 @@ resource "google_service_networking_connection" "default" {
   reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
 }
 
-
-data "google_secret_manager_secret" "sqlroot_password" {
-  secret_id = "projects/1092774812152/secrets/sqlroot_password"
+data "google_secret_manager_secret_version" "sqlroot_password" {
+  secret = "sqlroot_password"
   project   = "prj-d-network-host-tp-nf3m"
 }
 
@@ -29,7 +28,7 @@ module "sql_instance" {
 
   name     = var.instance_name
   db_name           = "default"
-  root_password     = data.google_secret_manager_secret.sqlroot_password.secret_id
+  root_password     = data.google_secret_manager_secret_version.sqlroot_password.secret_data
   database_version  = "SQLSERVER_2022_ENTERPRISE"
   tier              = "db-custom-2-3840"
   disk_type         = "PD_SSD"
