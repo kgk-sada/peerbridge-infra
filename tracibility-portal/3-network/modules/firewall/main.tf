@@ -7,7 +7,7 @@ resource "google_compute_firewall" "allow_ingress_iap" {
 
   allow {
     protocol = "tcp"
-    ports    = ["22", "1433"]
+    ports    = ["22", "1433", "3389"]
   }
 
   source_ranges = ["35.235.240.0/20"]
