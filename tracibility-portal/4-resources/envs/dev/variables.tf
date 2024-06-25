@@ -16,8 +16,13 @@ variable "environment_code" {
   default = "d"
 }
 
-variable "instance_name" {
+variable "mig_name" {
   description = "Cloud SQL Instance Name"
+}
+
+variable "sql_instance_name" {
+  description = "Cloud SQL Instance Name"
+  type = string
 }
 
 variable "network_name" {

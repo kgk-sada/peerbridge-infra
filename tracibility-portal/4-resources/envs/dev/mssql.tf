@@ -26,7 +26,7 @@ module "sql_instance" {
   project_id = local.application_project_id
   region     = var.default_region
 
-  name     = var.instance_name
+  name     = var.sql_instance_name
   db_name           = "default"
   root_password     = data.google_secret_manager_secret_version.sqlroot_password.secret_data
   database_version  = "SQLSERVER_2022_ENTERPRISE"

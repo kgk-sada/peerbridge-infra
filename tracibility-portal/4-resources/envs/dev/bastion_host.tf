@@ -1,8 +1,3 @@
-data "google_compute_network" "network" {
-  name = var.network_name
-  project = local.network_project_id
-}
-
 resource "google_compute_instance" "bastion_host" {
   project         = local.application_project_id
   name         = "bastion-host-for-cloudsql"

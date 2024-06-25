@@ -8,7 +8,6 @@ locals {
   secondary_range_name         = data.terraform_remote_state.network.outputs.dev_subnets_secondary_ip_range[0][1].range_name
 }
 
-
 data "terraform_remote_state" "env" {
   backend = "gcs"
 
@@ -26,3 +25,9 @@ data "terraform_remote_state" "network" {
     prefix = "terraform/networks/development"
   }
 }
+
+data "google_compute_network" "network" {
+  name = var.network_name
+  project = local.network_project_id
+}
+

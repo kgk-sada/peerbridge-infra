@@ -1,7 +1,3 @@
-/*****************************************************
-  Bucket For Dev Environment for uploading dummy files
- ******************************************************/
-
 resource "google_storage_bucket" "gcs_bucket" {
   project                     = var.gcp_bucket_project_id
   name                        = var.bucket_name
@@ -12,5 +8,4 @@ resource "google_storage_bucket" "gcs_bucket" {
   versioning {
     enabled = var.enable_versioning
   }
-
 }
