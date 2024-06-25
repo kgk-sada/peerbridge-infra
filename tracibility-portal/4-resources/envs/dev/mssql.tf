@@ -16,7 +16,7 @@ resource "google_service_networking_connection" "default" {
 
 data "google_secret_manager_secret_version" "sqlroot_password" {
   secret = "sqlroot_password"
-  project   = "prj-d-network-host-tp-nf3m"
+  project   = "prj-d-backend-tp-s2sb"
 }
 
 module "sql_instance" {
