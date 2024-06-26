@@ -20,12 +20,9 @@ terraform {
       source  = "hashicorp/google"
       version = "~> 4.79"
     }
-    kubernetes = {
-      source = "hashicorp/kubernetes"
-    }
-    helm = {
-      source  = "hashicorp/helm"
-      version = "= 2.5.1"
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = "~> 4.79"
     }
   }
   required_version = ">= 0.13"
@@ -35,4 +32,14 @@ provider "helm" {
   kubernetes {
     config_path = "~/.kube/config"
   }
+}
+
+provider "google" {
+  project     = local.application_project_id
+  region = "us-central1"
+}
+
+provider "google-beta" {
+  project     = local.application_project_id
+  region = "us-central1"
 }

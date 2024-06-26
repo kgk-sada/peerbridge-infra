@@ -2,15 +2,16 @@
 resource "google_compute_instance_template" "instance_template" {
   name         = "l7-ilb-mig-template"
   provider     = google-beta
-  machine_type = "e2-standrd-4"
+  project      = var.gcp_bucket_project_id
+  machine_type = "e2-standard-4"
 
 
   network_interface {
-    network    = data.google_compute_network.network.id
-    subnetwork = data.google_compute_network.network.subnetworks_self_links[0]
-    access_config {
-      # add external ip to fetch packages
-    }
+    network = local.network_self_link
+    subnetwork = local.subnet_01_self_link
+    # access_config {
+    #   # add external ip to fetch packages
+    # }
   }
   disk {
     source_image = "windows-server-2016-dc-v20240612"
@@ -29,49 +30,51 @@ resource "google_compute_instance_template" "instance_template" {
 resource "google_compute_region_instance_group_manager" "mig" {
   name     = var.mig_name
   provider = google-beta
+  project  = var.gcp_bucket_project_id
   region   = "us-central1"
   version {
     instance_template = google_compute_instance_template.instance_template.id
     name              = "primary"
   }
+  auto_healing_policies {
+    initial_delay_sec = 300
+    health_check      =  google_compute_health_check.autohealing.id
+  }
+  named_port {
+    name = "tcp"
+    port = 3389
+  }
+  
   base_instance_name = "traceability-portal"
   target_size        = 1
   update_policy {
     type = "PROACTIVE"
     minimal_action = "REPLACE"
     max_surge_fixed = 3
-    max_unavailable_fixed = 1 
-  
   }
 }
 
+resource "google_compute_health_check" "autohealing" {
+  name                = "autohealing-health-check-mig"
+  check_interval_sec  = 30
+  timeout_sec         = 5
+  healthy_threshold   = 2
+  unhealthy_threshold = 10
 
+  tcp_health_check {
+    # request_path = "/"
+    port         = "3389"
+  }
+}
 
+# Granting Google APIs Service Agent compute.subnetworks.use permission at Network project
 
-# resource "google_compute_instance" "gce" {
-#   project         = local.application_project_id
-#   name         = "traceability_portal"
-#   machine_type = "e2-standard-4"
-#   zone         = "us-central1-a"
+data "google_project" "project_number" {
+  project_id = local.application_project_id
+}
 
-#   boot_disk {
-#     initialize_params {
-#       size = 100
-#       image = "windows-server-2016-dc-v20240612"
-#     }
-#   }
-
-#   network_interface {
-#     network = data.google_compute_network.network.id
-#     subnetwork = data.google_compute_network.network.subnetworks_self_links[0]
-#     # access_config {
-#     #   // Ephemeral public IP
-#     # }
-#   }
-
-#   service_account {
-#     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
-#     email  = module.bastion_host_service_account.email
-#     scopes = ["cloud-platform"]
-#   }
-# }
+resource "google_project_iam_member" "mig" {
+  project = local.network_project_id
+  role    = "roles/compute.networkUser"
+  member  = "serviceAccount:${data.google_project.project_number.number}@cloudservices.gserviceaccount.com"
+}

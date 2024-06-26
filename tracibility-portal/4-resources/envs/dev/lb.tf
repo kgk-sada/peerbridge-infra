@@ -1,56 +1,42 @@
-# forwarding rule
-resource "google_compute_forwarding_rule" "google_compute_forwarding_rule" {
-  name                  = "l7-ilb-forwarding-rule"
-  provider              = google-beta
-  region                = "us-central1"
-  ip_protocol           = "TCP"
-  load_balancing_scheme = "INTERNAL_MANAGED"
-  port_range            = "80"
-  target                = google_compute_region_target_http_proxy.default.id
-  network               = data.google_compute_network.network.id
-  subnetwork            = data.google_compute_network.network.subnetworks_self_links[0]
-  network_tier          = "PREMIUM"
-}
+module "gce-lb-https" {
+  source  = "terraform-google-modules/lb-http/google"
+  version = "~> 10.0"
+  name    = "xlb-7-https"
+  project = local.application_project_id
+  ssl = true
+  http_forward = false
+  managed_ssl_certificate_domains = ["cormdx.com"]
+  firewall_networks = [local.network_self_link]
+  firewall_projects = [local.network_project_id]
+  backends = {
+    default = {
 
-# HTTP target proxy
-resource "google_compute_region_target_http_proxy" "default" {
-  name     = "l7-ilb-target-http-proxy"
-  provider = google-beta
-  region   = "us-central1"
-  url_map  = google_compute_region_url_map.default.id
-}
+      protocol    = "HTTP"
+      port        = 80
+      port_name   = "tcp"
+      timeout_sec = 30
+      enable_cdn  = false
 
-# URL map
-resource "google_compute_region_url_map" "default" {
-  name            = "l7-ilb-regional-url-map"
-  provider        = google-beta
-  region          = "us-central1"
-  default_service = google_compute_region_backend_service.default.id
-}
+      health_check = {
+        # request_path = "/"
+        protocol = "TCP"
+        port         = 3389
+      }
 
-# backend service
-resource "google_compute_region_backend_service" "default" {
-  name                  = "l7-ilb-backend-subnet"
-  provider              = google-beta
-  region                = "us-central1"
-  protocol              = "HTTP"
-  load_balancing_scheme = "INTERNAL_MANAGED"
-  timeout_sec           = 10
-  health_checks         = [google_compute_region_health_check.default.id]
-  backend {
-    group           = google_compute_region_instance_group_manager.mig.instance_group
-    balancing_mode  = "UTILIZATION"
-    capacity_scaler = 1.0
+      log_config = {
+        enable      = true
+        sample_rate = 1.0
+      }
+
+      groups = [
+        {
+          group = resource.google_compute_region_instance_group_manager.mig.instance_group
+        }
+      ]
+
+      iap_config = {
+        enable = false
+      }
+    }
   }
 }
-
-# health check
-resource "google_compute_region_health_check" "default" {
-  name     = "l7-ilb-hc"
-  provider = google-beta
-  region   = "us-central1"
-  http_health_check {
-    port_specification = "USE_SERVING_PORT"
-  }
-}
-

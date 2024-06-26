@@ -30,11 +30,11 @@ module "sql_instance" {
   db_name           = "default"
   root_password     = data.google_secret_manager_secret_version.sqlroot_password.secret_data
   database_version  = "SQLSERVER_2022_ENTERPRISE"
-  tier              = "db-custom-2-3840"
+  tier              = "db-custom-4-15360"
   disk_type         = "PD_SSD"
-  disk_size         = "100"
+  disk_size         = 100
   availability_type = "ZONAL"
-  deletion_protection = true 
+  deletion_protection = true
   
 
   ip_configuration  =  {
