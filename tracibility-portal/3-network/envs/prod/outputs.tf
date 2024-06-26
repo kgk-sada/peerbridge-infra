@@ -36,3 +36,8 @@ output "dev_subnetwork_name_02" {
   value = local.subnet_02
   description = "Dev Network Subnetwork-02 name"
 }
+
+output "prod_subnetwork_self_links" {
+  value = module.traceability_portal_network.subnets_self_links
+  description = "Network Subnetworks self link"
+}
