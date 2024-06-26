@@ -13,14 +13,14 @@ module "gce-lb-https" {
 
       protocol    = "HTTP"
       port        = 80
-      port_name   = "tcp"
+      port_name   = "http"
       timeout_sec = 30
       enable_cdn  = false
 
       health_check = {
         # request_path = "/"
-        protocol = "TCP"
-        port         = 3389
+        protocol = "HTTP"
+        port         = 80
       }
 
       log_config = {

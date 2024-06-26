@@ -41,8 +41,8 @@ resource "google_compute_region_instance_group_manager" "mig" {
     health_check      =  google_compute_health_check.autohealing.id
   }
   named_port {
-    name = "tcp"
-    port = 3389
+    name = "http"
+    port = 80
   }
   
   base_instance_name = "traceability-portal"
@@ -61,9 +61,8 @@ resource "google_compute_health_check" "autohealing" {
   healthy_threshold   = 2
   unhealthy_threshold = 10
 
-  tcp_health_check {
-    # request_path = "/"
-    port         = "3389"
+  http_health_check {
+    port         = "80"
   }
 }
 
