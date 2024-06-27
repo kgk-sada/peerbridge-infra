@@ -6,7 +6,6 @@ module "gce-lb-https" {
   source  = "terraform-google-modules/lb-http/google"
   version = "~> 10.0"
   name    = "xlb-7-https"
-  address = resource.google_compute_global_address.lb.self_link
   project = local.application_project_id
   address = google_compute_global_address.lb.address
   create_address = false
