@@ -7,10 +7,10 @@ resource "google_compute_firewall" "allow_ingress_iap" {
 
   allow {
     protocol = "tcp"
-    ports    = ["22", "1433", "3389"]
+    ports    = ["22", "1433", "3389", "80", "8080", "443"]
   }
 
-  source_ranges = ["35.235.240.0/20"]
+  source_ranges = ["35.235.240.0/20", "10.0.0.0/8"]
 }
 
 resource "google_compute_firewall" "allow_ingress_lb_hc" {
