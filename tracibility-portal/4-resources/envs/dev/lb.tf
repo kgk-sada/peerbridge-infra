@@ -1,5 +1,8 @@
 resource "google_compute_global_address" "lb" {
   name = "lb-ext-ip"
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 module "gce-lb-https" {
@@ -24,7 +27,7 @@ module "gce-lb-https" {
       enable_cdn  = false
 
       health_check = {
-        # request_path = "/"
+        request_path = "/Login.aspx?ReturnURL=http://localhost/default.aspx"
         protocol = "HTTP"
         port         = 80
       }
