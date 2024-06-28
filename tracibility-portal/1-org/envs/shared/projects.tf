@@ -69,7 +69,7 @@ module "devops" {
   org_id                   = local.org_id
   billing_account          = local.billing_account
   folder_id                = google_folder.common.id
-  activate_apis            = ["logging.googleapis.com", "billingbudgets.googleapis.com", "artifactregistry.googleapis.com", "cloudbuild.googleapis.com"]
+  activate_apis            = ["logging.googleapis.com", "billingbudgets.googleapis.com", "artifactregistry.googleapis.com", "cloudbuild.googleapis.com", "secretmanager.googleapis.com"]
 
   labels = {
     environment      = "common"
