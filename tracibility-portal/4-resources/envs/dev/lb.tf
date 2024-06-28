@@ -14,7 +14,7 @@ module "gce-lb-https" {
   create_address = false
   ssl = true
   http_forward = false
-  managed_ssl_certificate_domains = ["cormdx.com"]
+  managed_ssl_certificate_domains = ["cormdx2.peerbridgehealth.com"]
   firewall_networks = [local.network_self_link]
   firewall_projects = [local.network_project_id]
   backends = {
