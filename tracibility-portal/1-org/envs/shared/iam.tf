@@ -127,3 +127,28 @@ resource "google_folder_iam_member" "error_reporting_viewer" {
   role   = "roles/errorreporting.viewer"
   member = "user:${var.gcp_groups.monitoring_users}"
 }
+
+
+module "cloud_build_service_account" {
+  source        = "terraform-google-modules/service-accounts/google"
+  depends_on = [ module.devops ]
+  version       = "~> 4.2"
+  project_id    = module.devops.project_id
+  names         = ["sa-cloud-build-ci-cd"]
+  display_name  = "Cloud Build CI/CD Service Account"
+  description   = "Service Account for Cloud Build CI/CD"
+  project_roles = [
+    "${module.devops.project_id}=>roles/compute.admin",
+    "${module.devops.project_id}=>roles/compute.storageAdmin",
+    "${module.devops.project_id}=>roles/logging.logWriter",
+    "${module.devops.project_id}=>roles/monitoring.metricWriter"
+    ]
+}
+
+# Give logs writer role to cloud build sa
+resource "google_project_iam_member" "cloud_build_sa_logs_writer" {
+  depends_on = [ module.devops ]
+  project = module.devops.project_id
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:${module.devops.project_number}@cloudbuild.gserviceaccount.com"
+}
