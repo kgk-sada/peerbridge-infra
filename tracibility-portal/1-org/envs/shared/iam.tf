@@ -141,14 +141,14 @@ module "cloud_build_service_account" {
     "${module.devops.project_id}=>roles/compute.admin",
     "${module.devops.project_id}=>roles/compute.storageAdmin",
     "${module.devops.project_id}=>roles/logging.logWriter",
-    "${module.devops.project_id}=>roles/monitoring.metricWriter"
+    "${module.devops.project_id}=>roles/monitoring.metricWriter",
+    "${module.devops.project_id}=>roles/cloudbuild.builds.editor",
     ]
 }
-
 # Give logs writer role to cloud build sa
 resource "google_project_iam_member" "cloud_build_sa_logs_writer" {
   depends_on = [ module.devops ]
   project = module.devops.project_id
-  role    = "roles/logging.logWriter"
+  role    = "roles/cloudbuild.builds.builder"
   member  = "serviceAccount:${module.devops.project_number}@cloudbuild.gserviceaccount.com"
 }
