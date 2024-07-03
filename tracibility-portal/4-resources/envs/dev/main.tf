@@ -33,3 +33,6 @@ data "google_compute_network" "network" {
   project = local.network_project_id
 }
 
+data "google_project" "project_number" {
+  project_id = local.application_project_id
+}

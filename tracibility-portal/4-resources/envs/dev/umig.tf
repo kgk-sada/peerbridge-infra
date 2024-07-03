@@ -29,7 +29,7 @@ resource "google_compute_instance" "dev_traceability_app_server" {
 
   service_account {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
-    email  = module.bastion_host_service_account.email
+    email  = module.traceability_app_service_account.email
     scopes = ["cloud-platform"]
   }
 }
@@ -124,10 +124,6 @@ resource "google_compute_instance_template" "instance_template" {
 # }
 
 # Granting Google APIs Service Agent compute.subnetworks.use permission at Network project
-
-data "google_project" "project_number" {
-  project_id = local.application_project_id
-}
 
 resource "google_project_iam_member" "mig" {
   project = local.network_project_id

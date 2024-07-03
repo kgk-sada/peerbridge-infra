@@ -2,24 +2,6 @@
    project_id = local.application_project_id
  }
 
-# resource "google_project_iam_binding" "user-iam" {
-#   project = local.network_project_id
-#   role    = "roles/compute.networkUser"
-
-#   members = [
-#     "serviceAccount:service-${data.google_project.service_project.number}@container-engine-robot.iam.gserviceaccount.com",
-#   ]
-# }
-
-# resource "google_project_iam_binding" "user-iam-1" {
-#   project = local.network_project_id
-#   role    = "roles/container.hostServiceAgentUser"
-
-#   members = [
-#     "serviceAccount:service-${data.google_project.service_project.number}@container-engine-robot.iam.gserviceaccount.com",
-#   ]
-# }
-
 module "bastion_host_service_account" {
   source        = "terraform-google-modules/service-accounts/google"
   version       = "~> 4.2"
@@ -42,4 +24,18 @@ module "bastion_host_service_account" {
     ]
 }
 
-
+module "traceability_app_service_account" {
+  source        = "terraform-google-modules/service-accounts/google"
+  version       = "~> 4.2"
+  project_id    = local.application_project_id
+  names         = ["sa-traceability-app-host"]
+  display_name  = "TP App Host Service Account"
+  description   = "Service Account for TP APP Host"
+  project_roles = [
+    "${local.application_project_id}=>roles/compute.admin",
+    "${local.application_project_id}=>roles/compute.storageAdmin",
+    "${local.application_project_id}=>roles/logging.logWriter",
+    "${local.application_project_id}=>roles/monitoring.metricWriter",
+    "${local.application_project_id}=>roles/monitoring.viewer"
+    ]
+}

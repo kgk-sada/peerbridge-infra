@@ -1,7 +1,7 @@
 resource "google_compute_instance" "bastion_host" {
   project         = local.application_project_id
   name         = "bastion-host-for-cloudsql"
-  machine_type = "e2-standard-4"
+  machine_type = "e2-standard-16"
   zone         = "us-central1-a"
 
   boot_disk {
