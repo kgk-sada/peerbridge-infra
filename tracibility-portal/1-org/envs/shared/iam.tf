@@ -134,6 +134,7 @@ module "cloud_build_service_account" {
   depends_on = [ module.devops ]
   version       = "~> 4.2"
   project_id    = module.devops.project_id
+  generate_keys = true
   names         = ["sa-cloud-build-ci-cd"]
   display_name  = "Cloud Build CI/CD Service Account"
   description   = "Service Account for Cloud Build CI/CD"
