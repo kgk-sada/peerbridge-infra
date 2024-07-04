@@ -83,45 +83,45 @@ resource "google_compute_instance_template" "instance_template" {
   }
 }
 
-# # MIG
-# resource "google_compute_region_instance_group_manager" "mig" {
-#   name     = var.mig_name
-#   provider = google-beta
-#   project  = var.gcp_bucket_project_id
-#   region   = "us-central1"
-#   version {
-#     instance_template = google_compute_instance_template.instance_template.id
-#     name              = "primary"
-#   }
-#   auto_healing_policies {
-#     initial_delay_sec = 300
-#     health_check      =  google_compute_health_check.autohealing.id
-#   }
-#   named_port {
-#     name = "http"
-#     port = 80
-#   }
+# MIG
+resource "google_compute_region_instance_group_manager" "mig" {
+  name     = var.mig_name
+  provider = google-beta
+  project  = var.gcp_bucket_project_id
+  region   = "us-central1"
+  version {
+    instance_template = google_compute_instance_template.instance_template.id
+    name              = "primary"
+  }
+  auto_healing_policies {
+    initial_delay_sec = 300
+    health_check      =  google_compute_health_check.autohealing.id
+  }
+  named_port {
+    name = "http"
+    port = 80
+  }
   
-#   base_instance_name = "traceability-portal"
-#   target_size        = 1
-#   update_policy {
-#     type = "PROACTIVE"
-#     minimal_action = "REPLACE"
-#     max_surge_fixed = 3
-#   }
-# }
+  base_instance_name = "traceability-portal"
+  target_size        = 1
+  update_policy {
+    type = "PROACTIVE"
+    minimal_action = "REPLACE"
+    max_surge_fixed = 3
+  }
+}
 
-# resource "google_compute_health_check" "autohealing" {
-#   name                = "autohealing-health-check-mig"
-#   check_interval_sec  = 30
-#   timeout_sec         = 5
-#   healthy_threshold   = 2
-#   unhealthy_threshold = 10
+resource "google_compute_health_check" "autohealing" {
+  name                = "autohealing-health-check-mig"
+  check_interval_sec  = 30
+  timeout_sec         = 5
+  healthy_threshold   = 2
+  unhealthy_threshold = 10
 
-#   http_health_check {
-#     port         = "80"
-#   }
-# }
+  http_health_check {
+    port         = "80"
+  }
+}
 
 # Granting Google APIs Service Agent compute.subnetworks.use permission at Network project
 
