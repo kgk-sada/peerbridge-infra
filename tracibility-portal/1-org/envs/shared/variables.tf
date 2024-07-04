@@ -151,3 +151,24 @@ variable "network_admin_roles" {
   description = "List of roles to be assigned to the network_admin group."
   type        = list(string)
 }
+
+
+
+# OPTIONAL PARAMETERS
+variable "storage_class" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE."
+  default     = "STANDARD"
+  type        = string
+}
+
+variable "uniform_access" {
+  description = "If set to true, all objects in the GCS bucket will have the same access levels (uniform). Set this to 'false' to be able to specify distinct access-levels to individual objects explicitly (fine-grained). Cannot be set to 'false' if 90 days have passed with the 'true' setting.  Considered 'true' if 'var.bucket_name' is a domain name."
+  default     = true
+  type        = bool
+}
+
+variable "enable_versioning" {
+  description = "Whether objects in the bucket should be versioneed or not. Considered 'true' if 'var.bucket_name' is a domain name."
+  default     = false
+  type        = bool
+}
