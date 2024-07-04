@@ -36,6 +36,8 @@ module "traceability_app_service_account" {
     "${local.application_project_id}=>roles/compute.storageAdmin",
     "${local.application_project_id}=>roles/logging.logWriter",
     "${local.application_project_id}=>roles/monitoring.metricWriter",
-    "${local.application_project_id}=>roles/monitoring.viewer"
+    "${local.application_project_id}=>roles/monitoring.viewer",
+    "${local.application_project_id}=>roles/secretmanager.secretAccessor",
+    "${local.application_project_id}=>roles/eventarc.eventReceiver"
     ]
 }

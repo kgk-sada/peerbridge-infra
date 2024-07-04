@@ -78,7 +78,7 @@ resource "google_compute_instance_template" "instance_template" {
   }
 
   metadata = {
-    windows-startup-script-ps1 = <<-EOT
+    sysprep-specialize-script-ps1 = <<-EOT
       $ErrorActionPreference = "Stop"
 
       $source = "$env:TEMP\app\PackageTmp"
@@ -154,6 +154,11 @@ resource "google_compute_instance_template" "instance_template" {
       $secretValue | Out-File -FilePath $jsonFilePath -Force
       Write-Output "Secret JSON file downloaded successfully to: $jsonFilePath"
     EOT
+  }
+
+  service_account {
+    email  = module.traceability_app_service_account.email
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
   }
 
   lifecycle {
