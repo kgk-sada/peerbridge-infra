@@ -144,6 +144,7 @@ module "cloud_build_service_account" {
     "${module.devops.project_id}=>roles/monitoring.metricWriter",
     "${module.devops.project_id}=>roles/cloudbuild.builds.editor",
     "${module.devops.project_id}=>roles/storage.admin",
+    "${module.devops.project_id}=>roles/iam.serviceAccountUser",
     ]
 }
 # Give logs writer role to cloud build sa
