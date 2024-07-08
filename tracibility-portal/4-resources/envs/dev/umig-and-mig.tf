@@ -78,82 +78,8 @@ resource "google_compute_instance_template" "instance_template" {
   }
 
   metadata = {
-    sysprep-specialize-script-ps1 = <<-EOT
-      $ErrorActionPreference = "Stop"
+    sysprep-specialize-script-url = "gs://prj-d-backend-tp-s2sb-artifacts/pbts.startup.script-v2.ps1"
 
-      $source = "$env:TEMP\app\PackageTmp"
-      $destination= 'C:\inetpub\wwwroot'
-      $secretName = "traceability-service-account-cred"  
-      $artifactPath = "gs://prj-d-backend-tp-s2sb-artifacts/traceability-base-v1.zip"
-      $jsonFilePath = "C:\traceability-config\prj-d-backend-tp-s2sb-a27930e13624.json"  
-
-      # Download application package from Cloud Storage
-      gsutil cp $artifactPath $env:TEMP\app.zip
-
-      # Install IIS
-      Enable-WindowsOptionalFeature -Online -FeatureName `
-              NetFx4Extended-ASPNET45, `
-              IIS-WebServerRole, `
-              IIS-WebServer, `
-              IIS-CommonHttpFeatures, `
-              IIS-HttpErrors, `
-              IIS-HttpRedirect, `
-              IIS-ApplicationDevelopment, `
-              IIS-HealthAndDiagnostics, `
-              IIS-HttpLogging, `
-              IIS-LoggingLibraries, `
-              IIS-RequestMonitor, `
-              IIS-HttpTracing, `
-              IIS-Security, `
-              IIS-RequestFiltering, `
-              IIS-Performance, `
-              IIS-WebServerManagementTools, `
-              IIS-IIS6ManagementCompatibility, `
-              IIS-Metabase, `
-              IIS-DefaultDocument, `
-              IIS-ApplicationInit, `
-              IIS-NetFxExtensibility45, `
-              IIS-ISAPIExtensions, `
-              IIS-ISAPIFilter, `
-              IIS-ASPNET45, `
-              IIS-HttpCompressionStatic
-
-      # Extract application package to wwwroot
-      New-Item -ItemType directory -Path $env:TEMP\app
-      Add-Type -AssemblyName System.IO.Compression.FileSystem
-      [System.IO.Compression.ZipFile]::ExtractToDirectory("$env:TEMP\app.zip", "$env:TEMP\app")
-      Remove-Item $env:TEMP\app.zip
-
-      Remove-Item C:\inetpub\wwwroot\* -Recurse -Force
-
-      # Set base directory for outer Get-ChildItem and Resolve-Path -Relative
-      Push-Location $source  
-      try {
-          Get-ChildItem -Path $source | ForEach-Object {
-              Get-ChildItem -Path $_.Fullname -File -Recurse |
-                  ForEach-Object {
-                      # Make the current file path relative to $source
-                      $relativePath = Resolve-Path $_.Fullname -Relative
-
-                      # Build up the full destination file path
-                      $destinationFullPath = Join-Path $destination $relativePath
-                      
-                      # Create destination directory if not already exists (-force)
-                      $null = New-Item (Split-Path $destinationFullPath -Parent) -ItemType Directory -Force
-
-                      # Copy the current file
-                      Copy-Item -Path $_.Fullname -Destination $destinationFullPath
-                  }
-          }
-      }
-      finally {
-          Pop-Location  # Restore the current directory
-      }
-
-      $secretValue = gcloud secrets versions access latest --secret="$secretName"
-      $secretValue | Out-File -FilePath $jsonFilePath -Force
-      Write-Output "Secret JSON file downloaded successfully to: $jsonFilePath"
-    EOT
   }
 
   service_account {
@@ -197,13 +123,18 @@ resource "google_compute_region_instance_group_manager" "mig" {
 
 resource "google_compute_health_check" "autohealing" {
   name                = "autohealing-health-check-mig"
-  check_interval_sec  = 30
+  check_interval_sec  = 5
   timeout_sec         = 5
   healthy_threshold   = 2
-  unhealthy_threshold = 10
+  unhealthy_threshold = 2
 
   http_health_check {
-    port         = "80"
+    port         = 80
+    request_path = "/Login.aspx?ReturnURL=http://localhost/default.aspx"
+  }
+
+  log_config {
+    enable = false
   }
 }
 

@@ -39,7 +39,8 @@ module "gce-lb-https" {
 
       groups = [
         {
-          group = google_compute_instance_group.dev_traceability_umig.self_link
+          # group = google_compute_instance_group.dev_traceability_umig.self_link
+          group = resource.google_compute_region_instance_group_manager.mig.instance_group
         }
       ]
 
