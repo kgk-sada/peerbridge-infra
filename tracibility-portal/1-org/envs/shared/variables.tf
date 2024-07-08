@@ -1,3 +1,8 @@
+variable "region" {
+  description = "The GCP region"
+  default     = "us-central1"
+}
+
 variable "enable_hub_and_spoke" {
   description = "Enable Hub-and-Spoke architecture."
   type        = bool

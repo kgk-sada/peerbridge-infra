@@ -42,3 +42,14 @@ output "logs_export_logbucket_name" {
   value       = module.logs_export.logbucket_destination_name
   description = "The log bucket for destination of log exports. See https://cloud.google.com/logging/docs/routing/overview#buckets"
 }
+
+output "cloud_build_service_account" {
+  value       = module.cloud_build_service_account.email
+  description = "cloud_build_service_account"
+}
+
+
+output "cloud_build_service_account_sa" {
+  value       = module.cloud_build_service_account.service_account
+  description = "cloud_build_service_account"
+}
