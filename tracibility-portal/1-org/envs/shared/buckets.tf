@@ -5,7 +5,7 @@ variable "bucket_suffix" {
 
 resource "google_storage_bucket" "cicd-bucket" {
   project                     = module.devops.project_id
-  name                        = "cicd-${var.bucket_suffix}"
+  name                        = "cicd${var.bucket_suffix}"
   location                    = "us-central1"
   storage_class               = var.storage_class
   uniform_bucket_level_access = var.uniform_access
