@@ -99,8 +99,8 @@ resource "google_compute_region_instance_group_manager" "mig" {
 
 resource "google_compute_health_check" "autohealing" {
   name                = "autohealing-health-check-mig"
-  check_interval_sec  = 5
-  timeout_sec         = 5
+  check_interval_sec  = 50
+  timeout_sec         = 50
   healthy_threshold   = 2
   unhealthy_threshold = 2
 
