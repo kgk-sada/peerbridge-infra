@@ -8,6 +8,7 @@ dev, prod, staging, training
 Files
 
 backend.tf: Configures the remote backend for storing the Terraform state files for the development environment.
+
 firewall.tf: Manages firewall rules and configurations for the development environment.
 
 main.tf: The main entry point for the development environment's Terraform configuration.

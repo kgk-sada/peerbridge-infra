@@ -15,9 +15,7 @@ resource "google_compute_instance" "dev_traceability_app_server" {
   network_interface {
     network = data.google_compute_network.network.id
     subnetwork = data.google_compute_network.network.subnetworks_self_links[0]
-    # access_config {
-    #   // Ephemeral public IP
-    # }
+
   }
 
   lifecycle {
@@ -34,26 +32,6 @@ resource "google_compute_instance" "dev_traceability_app_server" {
   }
 }
 
-# resource "google_compute_instance_group" "dev_traceability_umig" {
-#   name        = "dev-treaceability-umig"
-
-#   instances = [
-#     google_compute_instance.dev_traceability_app_server.self_link
-#   ]
-
-#   named_port {
-#     name = "http"
-#     port = "80"
-#   }
-
-#   named_port {
-#     name = "https"
-#     port = "443"
-#   }
-
-#   zone = "us-central1-a"
-# }
-
 # instance template
 resource "google_compute_instance_template" "instance_template" {
   name         = "l7-ilb-mig-template-startup-script"
@@ -64,9 +42,7 @@ resource "google_compute_instance_template" "instance_template" {
   network_interface {
     network    = local.network_self_link
     subnetwork = local.subnet_01_self_link
-    # access_config {
-    #   # add external ip to fetch packages
-    # }
+
   }
 
   disk {
