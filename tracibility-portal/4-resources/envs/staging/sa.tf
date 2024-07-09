@@ -57,3 +57,38 @@ resource "google_project_iam_member" "sa-for-devops-1" {
   role    = "roles/compute.storageAdmin"
   member  = "serviceAccount:${module.traceability_app_service_account.email}"
 }
+
+
+# Give role to cloud build sa
+resource "google_project_iam_member" "sa-for-devops-2" {
+  project = local.devops_project_id
+  role    = "roles/compute.admin"
+  member  = "serviceAccount:${module.traceability_app_service_account.email}"
+}
+
+# Give role to cloud build sa
+resource "google_project_iam_member" "sa-for-devops-3" {
+  project = local.devops_project_id
+  role    = "roles/compute.serviceAgent"
+  member  = "serviceAccount:${module.traceability_app_service_account.email}"
+}
+
+# Give role to cloud build sa
+resource "google_project_iam_member" "sa-for-devops-4" {
+  project = local.devops_project_id
+  role    = "roles/compute.instanceAdmin.v1"
+  member  = "serviceAccount:${module.traceability_app_service_account.email}"
+}
+
+# Give role to cloud build sa
+resource "google_project_iam_member" "sa-for-devops-5" {
+  project = local.devops_project_id
+  role    = "roles/eventarc.eventReceiver"
+  member  = "serviceAccount:${module.traceability_app_service_account.email}"
+}
+# Give role to cloud build sa
+resource "google_project_iam_member" "sa-for-devops-6" {
+  project = local.devops_project_id
+  role    = "roles/secretmanager.secretAccessor"
+  member  = "serviceAccount:${module.traceability_app_service_account.email}"
+}
