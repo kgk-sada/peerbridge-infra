@@ -84,7 +84,7 @@ locals {
     ],
   }
 
-  // Roles required to manage resources in the Seed project
+  # Roles required to manage resources in the Seed project
   granular_sa_seed_project = {
     "bootstrap" = [
       "roles/storage.admin",
@@ -105,7 +105,7 @@ locals {
     ],
   }
 
-  // Roles required to manage resources in the CI/CD project
+  # Roles required to manage resources in the CI/CD project
   granular_sa_cicd_project = {
     "bootstrap" = [
       "roles/storage.admin",
@@ -165,11 +165,11 @@ module "seed_project_iam_member" {
   roles       = each.value
 }
 
-// When the bootstrap projects are created, the Compute Engine
-// default service account is disabled but it still has the Editor
-// role associated with the service account. This default SA is the
-// only member with the editor role.
-// This module will remove all editors from both projects.
+# When the bootstrap projects are created, the Compute Engine
+# default service account is disabled but it still has the Editor
+# role associated with the service account. This default SA is the
+# only member with the editor role.
+# This module will remove all editors from both projects.
 module "bootstrap_projects_remove_editor" {
   source   = "./modules/parent-iam-remove-role"
   for_each = local.bootstrap_projects

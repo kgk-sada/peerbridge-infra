@@ -1,3 +1,4 @@
+# local variable creation
 locals {
   step_terraform_sa = [
     "serviceAccount:${google_service_account.terraform-env-sa["bootstrap"].email}",
@@ -5,7 +6,6 @@ locals {
     "serviceAccount:${google_service_account.terraform-env-sa["env"].email}",
     "serviceAccount:${google_service_account.terraform-env-sa["net"].email}",
     "serviceAccount:${google_service_account.terraform-env-sa["proj"].email}",
-    #    "serviceAccount:${google_service_account.terraform-env-sa["resources"].email}",
   ]
   org_project_creators = distinct(concat(var.org_project_creators, local.step_terraform_sa))
   parent               = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
@@ -16,11 +16,13 @@ locals {
   group_billing_admins = var.groups.create_groups ? var.groups.required_groups.group_billing_admins : var.group_billing_admins
 }
 
+# resource creates a Google Cloud folder for bootstrapping
 resource "google_folder" "bootstrap" {
   display_name = "${var.folder_prefix}-bootstrap"
   parent       = local.parent
 }
 
+# module configures the bootstrap setup using the terraform-google-modules/bootstrap module
 module "seed_bootstrap" {
   source  = "terraform-google-modules/bootstrap/google"
   version = "~> 6.3"

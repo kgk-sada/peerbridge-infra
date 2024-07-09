@@ -1,3 +1,4 @@
+# local variable filters required groups to create based on the condition
 locals {
   required_groups_to_create = {
     for key, value in var.groups.required_groups : key => value
@@ -5,11 +6,13 @@ locals {
   }
 }
 
+# retrieves organization information from Google Cloud
 data "google_organization" "org" {
   count        = var.groups.create_groups ? 1 : 0
   organization = var.org_id
 }
 
+# module creates required Google Cloud groups based on the filtered list
 module "required_group" {
   source               = "terraform-google-modules/group/google"
   version              = "~> 0.4"
