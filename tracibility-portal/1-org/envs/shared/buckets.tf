@@ -1,8 +1,10 @@
+# variable defines a suffix to append to all bucket names
 variable "bucket_suffix" {
   description = "Suffix to append to all bucket names"
   default     = "-tp-dev"
 }
 
+# resource creates a Google Cloud Storage bucket for CICD with specified settings
 resource "google_storage_bucket" "cicd-bucket" {
   project                     = module.devops.project_id
   name                        = "cicd${var.bucket_suffix}"
@@ -15,7 +17,7 @@ resource "google_storage_bucket" "cicd-bucket" {
   }
 }
 
-
+# resource creates an empty zip file object in the CICD bucket
 resource "google_storage_bucket_object" "cicd-bucket-zipfile" {
   name   = "ZipFile/"
   bucket = google_storage_bucket.cicd-bucket.name
@@ -23,6 +25,7 @@ resource "google_storage_bucket_object" "cicd-bucket-zipfile" {
   count  = 1
 }
 
+# resource creates an empty script file object in the CICD bucket
 resource "google_storage_bucket_object" "cicd-bucket-script" {
   name   = "Script/"
   bucket = google_storage_bucket.cicd-bucket.name

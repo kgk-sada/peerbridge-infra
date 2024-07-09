@@ -7,10 +7,7 @@ locals {
   ]
 }
 
-/******************************************
-  Projects for log sinks
-*****************************************/
-
+# Projects for log sinks
 module "org_audit_logs" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 14.0"

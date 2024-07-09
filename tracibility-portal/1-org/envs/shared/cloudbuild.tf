@@ -1,3 +1,4 @@
+# manuall triggered cloud build for dev env
 resource "google_cloudbuild_trigger" "cicd_trigger_dev_tp" {
   name        = "cicd-trigger-dev-tp"
   location = "us-central1"
@@ -20,7 +21,7 @@ resource "google_cloudbuild_trigger" "cicd_trigger_dev_tp" {
   }
 }
 
-
+# manuall triggered cloud build for staging env
 resource "google_cloudbuild_trigger" "cicd_trigger_staging_tp" {
   name        = "cicd-trigger-staging-tp"
   location    = "us-central1"
@@ -45,6 +46,7 @@ resource "google_cloudbuild_trigger" "cicd_trigger_staging_tp" {
   }
 }
 
+# manuall triggered cloud build for training env
 resource "google_cloudbuild_trigger" "cicd_trigger_training_tp" {
   name        = "cicd-trigger-training-tp"
   location    = "us-central1"
@@ -69,6 +71,7 @@ resource "google_cloudbuild_trigger" "cicd_trigger_training_tp" {
   }
 }
 
+# manuall triggered cloud build for prod env
 resource "google_cloudbuild_trigger" "cicd_trigger_prod_tp" {
   name        = "cicd-trigger-prod-tp"
   location    = "us-central1"

@@ -1,7 +1,4 @@
-/******************************************
-  Audit Logs - IAM
-*****************************************/
-
+#Audit Logs - IAM
 locals {
   enabling_data_logs = var.data_access_logs_enabled ? ["DATA_WRITE", "DATA_READ"] : []
 }
@@ -48,20 +45,16 @@ resource "google_folder_iam_audit_config" "folder_config" {
   }
 }
 
-/******************************************
-  Billing Cloud Console - IAM
-*****************************************/
 
+# Billing Cloud Console - IAM
 resource "google_organization_iam_member" "billing_viewer" {
   org_id = local.org_id
   role   = "roles/billing.viewer"
   member = "group:${var.billing_data_users}"
 }
 
-/******************************************
- Groups permissions according to SFB (Section 6.2 - Users and groups) - IAM
-*****************************************/
 
+# Groups permissions according to SFB (Section 6.2 - Users and groups) - IAM
 resource "google_folder_iam_member" "network_admin" {
   count  = var.gcp_groups.platform_viewer != null && local.parent_folder != "" ? 1 : 0
   folder = "folders/${local.parent_folder}"
@@ -78,10 +71,8 @@ module "parent_iam_member" {
   member      = "group:${var.gcp_groups.network_admin}"
 }
 
-/******************************************
- Privileged accounts permissions according to SFB (Section 6.3 - Privileged identities)
-*****************************************/
 
+# Privileged accounts permissions according to SFB (Section 6.3 - Privileged identities)
 resource "google_organization_iam_member" "org_admin_user" {
   count  = var.gcp_user.org_admin != null && local.parent_folder == "" ? 1 : 0
   org_id = local.org_id
@@ -103,10 +94,8 @@ resource "google_billing_account_iam_member" "billing_admin_user" {
   member             = "user:${var.gcp_user.billing_admin}"
 }
 
-/******************************************
-  Monitoring - IAM
-*****************************************/
 
+# Monitoring - IAM
 resource "google_folder_iam_member" "monitoring_viewer" {
   count  = var.gcp_user.org_admin != null && local.parent_folder != "" ? 1 : 0
   folder = "folders/${local.parent_folder}"
@@ -147,6 +136,7 @@ module "cloud_build_service_account" {
     "${module.devops.project_id}=>roles/iam.serviceAccountUser",
     ]
 }
+
 # Give logs writer role to cloud build sa
 resource "google_project_iam_member" "cloud_build_sa_logs_writer" {
   depends_on = [ module.devops ]

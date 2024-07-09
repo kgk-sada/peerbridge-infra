@@ -18,9 +18,9 @@ module "logs_export" {
   resource_type                  = local.parent_resource_type
   logging_destination_project_id = module.org_audit_logs.project_id
 
-  /******************************************
-    Send logs to Storage
-  *****************************************/
+
+#  Send logs to Storage
+
   storage_options = {
     logging_sink_filter          = local.all_logs_filter
     logging_sink_name            = "sk-c-logging-bkt"
@@ -33,9 +33,9 @@ module "logs_export" {
     versioning                   = var.log_export_storage_versioning
   }
 
-  /******************************************
-    Send logs to Logbucket
-  *****************************************/
+
+#  Send logs to Logbucket
+
   logbucket_options = {
     logging_sink_name   = "sk-c-logging-logbkt"
     logging_sink_filter = local.all_logs_filter
