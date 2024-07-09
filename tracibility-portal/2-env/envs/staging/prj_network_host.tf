@@ -25,3 +25,10 @@ module "network_host" {
     billing_code = var.env_billing_code
   }
 }
+
+# Give role to cloud build sa
+resource "google_project_iam_member" "networkAdmin" {
+  project = module.network_host.project
+  role    = "roles/workstations.networkAdmin"
+  member  = "serviceAccount:${local.devops_sa}"
+}

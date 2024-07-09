@@ -29,3 +29,17 @@ module "application" {
     billing_code     = var.env_billing_code
   }
 }
+
+# Give role to cloud build sa
+resource "google_project_iam_member" "instanceAdmin" {
+  project = module.application.project
+  role    = "roles/compute.instanceAdmin.v1"
+  member  = "serviceAccount:${local.devops_sa}"
+}
+
+# Give role to cloud build sa
+resource "google_project_iam_member" "serviceAccountUser" {
+  project = module.application.project
+  role    = "roles/iam.serviceAccountUser"
+  member  = "serviceAccount:${local.devops_sa}"
+}

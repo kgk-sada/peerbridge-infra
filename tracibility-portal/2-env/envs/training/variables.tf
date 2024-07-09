@@ -27,9 +27,3 @@ variable "env_billing_code" {
   type        = string
   description = "The billing code for environment"
 }
-
-
-# variable "network_host_project_id" {
-#   type        = string
-#   description = "The Project ID of Network Host project."
-# }
