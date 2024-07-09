@@ -40,6 +40,7 @@ module "traceability_app_service_account" {
     "${local.application_project_id}=>roles/secretmanager.secretAccessor",
     "${local.application_project_id}=>roles/eventarc.eventReceiver",
     "${local.application_project_id}=>roles/storage.objectViewer",
+    "${local.application_project_id}=>roles/meshconfig.serviceAgent",
     ]
 }
 
