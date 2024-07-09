@@ -34,25 +34,25 @@ resource "google_compute_instance" "dev_traceability_app_server" {
   }
 }
 
-resource "google_compute_instance_group" "dev_traceability_umig" {
-  name        = "dev-treaceability-umig"
+# resource "google_compute_instance_group" "dev_traceability_umig" {
+#   name        = "dev-treaceability-umig"
 
-  instances = [
-    google_compute_instance.dev_traceability_app_server.self_link
-  ]
+#   instances = [
+#     google_compute_instance.dev_traceability_app_server.self_link
+#   ]
 
-  named_port {
-    name = "http"
-    port = "80"
-  }
+#   named_port {
+#     name = "http"
+#     port = "80"
+#   }
 
-  named_port {
-    name = "https"
-    port = "443"
-  }
+#   named_port {
+#     name = "https"
+#     port = "443"
+#   }
 
-  zone = "us-central1-a"
-}
+#   zone = "us-central1-a"
+# }
 
 # instance template
 resource "google_compute_instance_template" "instance_template" {

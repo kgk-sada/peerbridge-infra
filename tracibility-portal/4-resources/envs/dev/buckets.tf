@@ -5,9 +5,9 @@ variable "bucket_suffix" {
 
 variable "bucket_names" {
   default = [
-    "azure-webjobs-eventhub",
-    "azure-webjobs-hosts",
-    "azure-webjobs-secrets",
+    "gcp-webjobs-eventhub",
+    "gcp-webjobs-hosts",
+    "gcp-webjobs-secrets",
     "cor-config",
     "error",
     "mobile-event-clinical-data",
@@ -42,9 +42,9 @@ resource "google_storage_bucket" "buckets" {
 
 
 
-resource "google_storage_bucket" "pbtsfilestore008" {
+resource "google_storage_bucket" "pbtsfilestore" {
   project                     = var.gcp_bucket_project_id
-  name                        = "pbtsfilestore008${var.bucket_suffix}"
+  name                        = "pbtsfilestore${var.bucket_suffix}"
   location                    = "us-central1"
   storage_class               = var.storage_class
   uniform_bucket_level_access = var.uniform_access
@@ -60,41 +60,41 @@ resource "google_storage_bucket" "pbtsfilestore008" {
 # Create folders inside the bucket
 resource "google_storage_bucket_object" "client_apps" {
   name   = "ClientApps/"
-  bucket = google_storage_bucket.pbtsfilestore008.name
+  bucket = google_storage_bucket.pbtsfilestore.name
   content = " "
   count  = 1
 }
 
 resource "google_storage_bucket_object" "pb_cor_log_files" {
   name   = "PBCorLogFiles/"
-  bucket = google_storage_bucket.pbtsfilestore008.name
+  bucket = google_storage_bucket.pbtsfilestore.name
   content = " "
   count  = 1
 }
 resource "google_storage_bucket_object" "core_mobile_app" {
   name   = "ClientApps/Core Mobile App/"
-  bucket = google_storage_bucket.pbtsfilestore008.name
+  bucket = google_storage_bucket.pbtsfilestore.name
   content = " "
   count  = 1
 }
 
 resource "google_storage_bucket_object" "firmware" {
   name   = "ClientApps/Firmware/"
-  bucket = google_storage_bucket.pbtsfilestore008.name
+  bucket = google_storage_bucket.pbtsfilestore.name
   content = " "
   count  = 1
 }
 
 resource "google_storage_bucket_object" "development" {
   name   = "ClientApps/Core Mobile App/Development/"
-  bucket = google_storage_bucket.pbtsfilestore008.name
+  bucket = google_storage_bucket.pbtsfilestore.name
   content = " "
   count  = 1
 }
 
 resource "google_storage_bucket_object" "production" {
   name   = "ClientApps/Core Mobile App/Production/"
-  bucket = google_storage_bucket.pbtsfilestore008.name
+  bucket = google_storage_bucket.pbtsfilestore.name
   content = " "
   count  = 1
 }
