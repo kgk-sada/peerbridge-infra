@@ -44,3 +44,12 @@ resource "google_project_iam_member" "serviceAccountUser" {
   role    = "roles/iam.serviceAccountUser"
   member  = "serviceAccount:${local.devops_sa}"
 }
+
+
+# Give role to cloud build sa
+resource "google_project_iam_member" "serviceAgent" {
+  project = module.application.project
+  role    = "roles/meshconfig.serviceAgent"
+  member  = "serviceAccount:${local.devops_sa}"
+}
+
