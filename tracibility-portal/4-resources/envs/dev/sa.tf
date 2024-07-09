@@ -42,3 +42,17 @@ module "traceability_app_service_account" {
     "${local.application_project_id}=>roles/storage.objectViewer",
     ]
 }
+
+# Give role to cloud build sa
+resource "google_project_iam_member" "sa-for-devops" {
+  project = local.devops_project_id
+  role    = "roles/storage.objectViewer"
+  member  = "serviceAccount:${module.traceability_app_service_account.email}"
+}
+
+# Give role to cloud build sa
+resource "google_project_iam_member" "sa-for-devops-1" {
+  project = local.devops_project_id
+  role    = "roles/compute.storageAdmin"
+  member  = "serviceAccount:${module.traceability_app_service_account.email}"
+}

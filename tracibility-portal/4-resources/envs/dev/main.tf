@@ -8,6 +8,7 @@ locals {
   subnet_02_self_link    = data.terraform_remote_state.network.outputs.dev_subnetwork_self_links[1]
   primary_range_name     = data.terraform_remote_state.network.outputs.dev_subnets_secondary_ip_range[0][0].range_name
   secondary_range_name   = data.terraform_remote_state.network.outputs.dev_subnets_secondary_ip_range[0][1].range_name
+  devops_project_id      = data.terraform_remote_state.org.outputs.devops-project_id
 }
 
 data "terraform_remote_state" "env" {
@@ -35,4 +36,13 @@ data "google_compute_network" "network" {
 
 data "google_project" "project_number" {
   project_id = local.application_project_id
+}
+
+data "terraform_remote_state" "org" {
+  backend = "gcs"
+
+  config = {
+    bucket = var.remote_state_bucket
+    prefix = "terraform/org/state"
+  }
 }

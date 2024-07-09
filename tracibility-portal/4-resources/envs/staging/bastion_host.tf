@@ -14,9 +14,7 @@ resource "google_compute_instance" "bastion_host" {
   network_interface {
     network = data.google_compute_network.network.id
     subnetwork = data.google_compute_network.network.subnetworks_self_links[0]
-    # access_config {
-    #   // Ephemeral public IP
-    # }
+
   }
 
   lifecycle {

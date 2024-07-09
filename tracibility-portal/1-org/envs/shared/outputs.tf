@@ -53,3 +53,8 @@ output "cloud_build_service_account_sa" {
   value       = module.cloud_build_service_account.service_account
   description = "cloud_build_service_account"
 }
+
+output "devops-project_id" {
+  value       = module.devops.project_id
+  description = "devops-project_id"
+}

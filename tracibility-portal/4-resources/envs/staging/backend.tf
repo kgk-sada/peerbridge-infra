@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
     bucket = "bkt-prj-b-seed-tfstate-163b" #UPDATE_ME
-    prefix = "terraform/resources/development"
+    prefix = "terraform/resources/staging"
   }
 }

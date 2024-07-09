@@ -1,6 +1,6 @@
-resource "google_compute_instance" "dev_traceability_app_server" {
+resource "google_compute_instance" "stg_traceability_app_server" {
   project         = local.application_project_id
-  name         = "dev-traceability-app-server"
+  name         = "stg-traceability-app-server"
   machine_type = "e2-standard-4"
   zone         = "us-central1-a"
 
@@ -34,7 +34,7 @@ resource "google_compute_instance" "dev_traceability_app_server" {
 
 # instance template
 resource "google_compute_instance_template" "instance_template" {
-  name         = "l7-ilb-mig-template-startup-script"
+  name         = "l7-ilb-mig-template-startup-script-v1"
   provider     = google-beta
   project      = var.gcp_bucket_project_id
   machine_type = "e2-standard-4"
@@ -54,7 +54,7 @@ resource "google_compute_instance_template" "instance_template" {
   }
 
   metadata = {
-    sysprep-specialize-script-url = "gs://prj-d-backend-tp-s2sb-artifacts/pbts.startup.script-v2.ps1"
+    sysprep-specialize-script-url = "gs://cicd-tp-stg/Static-Script/pbts.startup.script-v2.ps1"  #REPLACE PATH
 
   }
 
