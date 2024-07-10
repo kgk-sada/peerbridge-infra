@@ -33,11 +33,12 @@ resource "google_compute_instance" "dev_traceability_app_server" {
 }
 
 # instance template
-resource "google_compute_instance_template" "instance_template" {
+resource "google_compute_region_instance_template" "instance_template" {
   name         = "l7-ilb-mig-template-startup-script-v1"
   provider     = google-beta
   project      = var.gcp_bucket_project_id
   machine_type = "e2-standard-4"
+  region       = "us-central1"
 
   network_interface {
     network    = local.network_self_link
@@ -76,11 +77,11 @@ resource "google_compute_region_instance_group_manager" "mig" {
   project  = var.gcp_bucket_project_id
   region   = "us-central1"
   version {
-    instance_template = google_compute_instance_template.instance_template.id
+    instance_template = google_compute_region_instance_template.instance_template.id
     name              = "primary"
   }
   auto_healing_policies {
-    initial_delay_sec = 300
+    initial_delay_sec = 500
     health_check      =  google_compute_health_check.autohealing.id
   }
   named_port {
