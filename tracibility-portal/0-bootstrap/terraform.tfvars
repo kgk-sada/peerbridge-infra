@@ -28,7 +28,7 @@ groups = {
       name = "group_pb_tp_prod"
       email =  "gcp-pb-tp-prod@cormdx.com"
     }
-    
+
     group_pb_tp_staging     = {
       name = "group_pb_tp_staging"
       email = "gcp-pb-tp-staging@cormdx.com"

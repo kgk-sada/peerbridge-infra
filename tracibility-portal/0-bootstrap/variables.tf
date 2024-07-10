@@ -78,6 +78,7 @@ variable "groups" {
     required_groups = map(object({
       name = string
       email = string
+      members = optional(list(string))
     }))
   })
 

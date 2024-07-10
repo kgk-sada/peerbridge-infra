@@ -10,6 +10,7 @@ module "required_group" {
   version              = "~> 0.4"
   for_each             = var.groups.required_groups
   id                   = each.value.email
+  members              = each.value.members != null ? each.value.members : []
   display_name         = each.value.name
   initial_group_config = var.initial_group_config
   customer_id          = data.google_organization.org[0].directory_customer_id
