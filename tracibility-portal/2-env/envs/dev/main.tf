@@ -4,6 +4,7 @@ locals {
   billing_account = data.terraform_remote_state.bootstrap.outputs.common_config.billing_account
   project_prefix  = data.terraform_remote_state.bootstrap.outputs.common_config.project_prefix
   folder_prefix   = data.terraform_remote_state.bootstrap.outputs.common_config.folder_prefix
+  dev_group       = data.terraform_remote_state.bootstrap.outputs.required_groups.group_pb_tp_dev.id
   devops_sa       = data.terraform_remote_state.org.outputs.cloud_build_service_account
 }
 

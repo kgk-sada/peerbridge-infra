@@ -27,3 +27,8 @@ variable "env_billing_code" {
   type        = string
   description = "The billing code for environment"
 }
+
+variable "iam_roles_group_pb_tp_dev_group" {
+  description = "A map of roles to members"
+  type        = set(string)
+}

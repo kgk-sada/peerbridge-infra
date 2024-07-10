@@ -9,3 +9,10 @@ resource "google_folder" "sub_folder" {
   display_name = each.key
   parent       = google_folder.env.name
 }
+
+resource "google_folder_iam_binding" "folder_roles" {
+  folder   = resource.google_folder.env.id
+  for_each = var.iam_roles_group_pb_tp_training_group
+  role     = each.key
+  members  = ["group:${local.training_group}"]
+}
