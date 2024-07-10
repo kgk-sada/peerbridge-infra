@@ -98,3 +98,25 @@ resource "google_storage_bucket_object" "production" {
   content = " "
   count  = 1
 }
+
+
+resource "google_storage_bucket" "insert-Log" {
+  project                     = var.gcp_bucket_project_id
+  name                        = "insertlog${var.bucket_suffix}"
+  location                    = "us-central1"
+  storage_class               = var.storage_class
+  uniform_bucket_level_access = var.uniform_access
+  force_destroy               = false
+  versioning {
+    enabled = var.enable_versioning
+  }
+  lifecycle_rule {
+    action {
+      type          = "SetStorageClass"
+      storage_class = "COLDLINE"
+    }
+    condition {
+      age = 90
+    }
+  }
+}
