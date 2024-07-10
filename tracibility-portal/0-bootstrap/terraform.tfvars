@@ -11,13 +11,28 @@ default_region = "us-central1"
 parent_folder = "208971481160" #REPLACE
 
 groups = {
-  create_groups   = false,
+  create_groups   = true,
   billing_project = "prj-billing-tp", #REPLACE
   required_groups = {
-    group_org_admins           = "gcp-organization-admin@cormdx.com"
-    group_billing_admins       = "gcp-billing-admin@cormdx.com"
-    billing_data_users         = "gcp-billing-user@cormdx.com"
-    gcp_network_admins         = "gcp-network-admin@cormdx.com"
-    monitoring_workspace_users = "gcp-monitoring-admin@cormdx.com"
+    group_pb_tp_dev = {
+      name = "group_pb_tp_dev"
+      email = "gcp-pb-tp-dev@cormdx.com"
+    }
+
+    group_pb_tp_training  = {
+      name = "group_pb_tp_training"
+      email = "gcp-pb-tp-training@cormdx.com"
+    }
+
+    group_pb_tp_prod         ={
+      name = "group_pb_tp_prod"
+      email =  "gcp-pb-tp-prod@cormdx.com"
+    }
+    
+    group_pb_tp_staging     = {
+      name = "group_pb_tp_staging"
+      email = "gcp-pb-tp-staging@cormdx.com"
+    }
+
   }
 }

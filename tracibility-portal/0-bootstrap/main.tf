@@ -12,8 +12,8 @@ locals {
   org_admins_org_iam_permissions = var.org_policy_admin_role == true ? [
     "roles/orgpolicy.policyAdmin", "roles/resourcemanager.organizationAdmin", "roles/billing.user"
   ] : ["roles/resourcemanager.organizationAdmin", "roles/billing.user"]
-  group_org_admins     = var.groups.create_groups ? var.groups.required_groups.group_org_admins : var.group_org_admins
-  group_billing_admins = var.groups.create_groups ? var.groups.required_groups.group_billing_admins : var.group_billing_admins
+  group_org_admins     = var.group_org_admins
+  group_billing_admins = var.group_billing_admins
 }
 
 # resource creates a Google Cloud folder for bootstrapping

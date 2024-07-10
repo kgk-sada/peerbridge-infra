@@ -75,29 +75,12 @@ variable "groups" {
     create_groups   = bool
     billing_project = string
 
-    required_groups = object({
-      group_org_admins           = string
-      group_billing_admins       = string
-      billing_data_users         = string
-      monitoring_workspace_users = string
-      gcp_network_admins         = string
-    })
+    required_groups = map(object({
+      name = string
+      email = string
+    }))
   })
 
-  validation {
-    condition     = var.groups.create_groups == true ? (var.groups.billing_project != "" ? true : false) : true
-    error_message = "A billing_project must be passed to use the automatic group creation."
-  }
-
-  validation {
-    condition     = var.groups.create_groups == true ? (var.groups.required_groups.group_org_admins != "" ? true : false) : true
-    error_message = "The group group_org_admins is invalid, it must be a valid email."
-  }
-
-  validation {
-    condition     = var.groups.create_groups == true ? (var.groups.required_groups.group_billing_admins != "" ? true : false) : true
-    error_message = "The group group_billing_admins is invalid, it must be a valid email."
-  }
 }
 
 variable "initial_group_config" {
