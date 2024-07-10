@@ -15,23 +15,27 @@ groups = {
   billing_project = "prj-billing-tp", #REPLACE
   required_groups = {
     group_pb_tp_dev = {
-      name = "group_pb_tp_dev"
-      email = "gcp-pb-tp-dev@cormdx.com"
+      name    = "group_pb_tp_dev"
+      email   = "gcp-pb-tp-dev@cormdx.com"
+      members = ["m.kaminski@cormdx.com", "d.dubois@cormdx.com", "s.gulati@cormdx.com", "r.hill@cormdx.com"]
     }
 
-    group_pb_tp_training  = {
-      name = "group_pb_tp_training"
-      email = "gcp-pb-tp-training@cormdx.com"
+    group_pb_tp_training = {
+      name    = "group_pb_tp_training"
+      email   = "gcp-pb-tp-training@cormdx.com"
+      members = ["m.kaminski@cormdx.com", "d.dubois@cormdx.com", "s.gulati@cormdx.com", "r.hill@cormdx.com"]
     }
 
-    group_pb_tp_prod         ={
-      name = "group_pb_tp_prod"
-      email =  "gcp-pb-tp-prod@cormdx.com"
+    group_pb_tp_prod = {
+      name    = "group_pb_tp_prod"
+      email   = "gcp-pb-tp-prod@cormdx.com"
+      members = ["m.kaminski@cormdx.com", "d.dubois@cormdx.com", "s.gulati@cormdx.com", "r.hill@cormdx.com"]
     }
 
-    group_pb_tp_staging     = {
-      name = "group_pb_tp_staging"
-      email = "gcp-pb-tp-staging@cormdx.com"
+    group_pb_tp_staging = {
+      name    = "group_pb_tp_staging"
+      email   = "gcp-pb-tp-staging@cormdx.com"
+      members = ["m.kaminski@cormdx.com", "d.dubois@cormdx.com", "s.gulati@cormdx.com", "r.hill@cormdx.com"]
     }
 
   }

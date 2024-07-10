@@ -76,8 +76,8 @@ variable "groups" {
     billing_project = string
 
     required_groups = map(object({
-      name = string
-      email = string
+      name    = string
+      email   = string
       members = optional(list(string))
     }))
   })
@@ -87,5 +87,5 @@ variable "groups" {
 variable "initial_group_config" {
   description = "Define the group configuration when it is initialized. Valid values are: WITH_INITIAL_OWNER, EMPTY and INITIAL_GROUP_CONFIG_UNSPECIFIED."
   type        = string
-  default     = "WITH_INITIAL_OWNER"
+  default     = "EMPTY"
 }
